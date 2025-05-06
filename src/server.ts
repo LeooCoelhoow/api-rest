@@ -1,10 +1,13 @@
 import express from "express"
 import { request } from "http"
+import { myMiddleware } from "./middlewares/my-middleware"
 
 const PORT = 3333
 
 const app = express()
 app.use(express.json()) // O Express espera que seja informado o tipo de dados no body (sendo mais comum o JSON ou XML)
+
+app.use(myMiddleware) // Para usar de forma global em todas as rotas (usar sempre antes das rotas)
 
 app.get("/products", (request, response) => {
   //  /products?page=1&limit=10
