@@ -1,6 +1,8 @@
+import express from "express"
+
 function sum(a: number, b: number){
   return a + b
 }
 
-const result: number = sum(5,3)
+const result: number = sum(5,5)
 console.log(result)
