@@ -16,8 +16,8 @@ app.get("/products", (request, response) => {
 app.post("/products", (request, response) => {
   const {name, price} = request.body // const recebendo os mesmos nomes do body no insomnia
 
-  response.send(`Produto ${name}, preço ${price}`)
-
+  // response.send(`Produto ${name}, preço ${price}`)
+  response.status(201).json({name, price})
 })
 
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`))
