@@ -16,7 +16,7 @@ app.get("/products", (request, response) => {
   response.send(`Página ${page} de ${limit}`)
 })
 
-app.post("/products", (request, response) => {
+app.post("/products", myMiddleware, (request, response) => { // Uso local do middleware
   const {name, price} = request.body // const recebendo os mesmos nomes do body no insomnia
 
   // response.send(`Produto ${name}, preço ${price}`)
