@@ -7,5 +7,9 @@
   },
   "author": "Leonardo Coelho",
   "license": "ISC",
-  "description": "Criando API REST com Node.js"
+  "description": "Criando API REST com Node.js",
+  "devDependencies": {
+    "@types/node": "^20.14.12",
+    "typescript": "^5.5.4"
+  }
 }
