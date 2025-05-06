@@ -20,7 +20,7 @@ app.post("/products", myMiddleware, (request, response) => { // Uso local do mid
   const {name, price} = request.body // const recebendo os mesmos nomes do body no insomnia
 
   // response.send(`Produto ${name}, preço ${price}`)
-  response.status(201).json({name, price})
+  response.status(201).json({name, price, user_id: request.user_id})
 })
 
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`))
