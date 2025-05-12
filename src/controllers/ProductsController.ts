@@ -1,4 +1,5 @@
 import { Request, Response } from "express"
+import { AppError } from "../utils/AppError"
 
 class ProductsController {
   /** Um controller tem que receber até no máximo 5 métodos, mais que isso é viável outro controller
@@ -18,6 +19,8 @@ class ProductsController {
 
   create(request: Request, response: Response){
     const {name, price} = request.body // const recebendo os mesmos nomes do body no insomnia
+
+    //throw new AppError("Erro")
 
     // response.send(`Produto ${name}, preço ${price}`)
     response.status(201).json({name, price, user_id: request.user_id})
