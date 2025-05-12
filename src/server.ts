@@ -11,18 +11,18 @@ app.use(express.json()) // O Express espera que seja informado o tipo de dados n
 
 app.use(routes)
 
+//Para tratar exceções tem que ser depois de tudo (como criar os middlewares, rotas...)
 /**
  * Status Code
  * 400 (Bad request): Erro do cliente
  * 500 (Internal Server Error): Erro do interno do servidor
  */
-//Para tratar exceções tem que ser depois de tudo (como criar os middlewares, rotas...)
-app.use((error: any, request: Request, response: Response, _: NextFunction) => {
-  if(error instanceof AppError){
-    return response.status(error.statusCode).json({ message: error.message })
+app.use(((error: any, request: Request, response: Response, _: NextFunction) => {
+  if (error instanceof AppError) {
+    return response.status(error.statusCode).json({ message: error.message });
   }
   
-  response.status(500).json({ message: "Erro no servidor!" })
-})
+  response.status(500).json({ message: "Erro no servidor!" });
+}) as express.ErrorRequestHandler)
 
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`))

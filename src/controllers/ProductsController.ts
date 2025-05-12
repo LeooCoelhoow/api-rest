@@ -20,6 +20,10 @@ class ProductsController {
   create(request: Request, response: Response){
     const {name, price} = request.body // const recebendo os mesmos nomes do body no insomnia
 
+    if(!name || !price){
+      throw new AppError("Nome do produto e preço são obrigatórios!")
+    }
+
     //throw new AppError("Erro")
 
     // response.send(`Produto ${name}, preço ${price}`)
