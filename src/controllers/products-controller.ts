@@ -1,5 +1,5 @@
 import { Request, Response } from "express"
-import { AppError } from "../utils/AppError"
+import { AppError } from "../utils/app-error"
 
 class ProductsController {
   /** Um controller tem que receber até no máximo 5 métodos, mais que isso é viável outro controller
@@ -20,8 +20,20 @@ class ProductsController {
   create(request: Request, response: Response){
     const {name, price} = request.body // const recebendo os mesmos nomes do body no insomnia
 
-    if(!name || !price){
-      throw new AppError("Nome do produto e preço são obrigatórios!")
+    if(!name){
+      throw new AppError("Nome do produto é obrigatório!")
+    }
+
+    if(name.trim().length < 6){
+      throw new AppError("Nome do produto deve ter mais de 5 caracteres!")
+    }
+
+    if(!price){
+      throw new AppError("Preço do produto é obrigatório!")
+    }
+
+    if(price < 0){
+      throw new AppError("Preço do produto deve ser maior que zero!")
     }
 
     //throw new AppError("Erro")
@@ -29,9 +41,6 @@ class ProductsController {
     // response.send(`Produto ${name}, preço ${price}`)
     response.status(201).json({name, price, user_id: request.user_id})
   }
-
-
-
 }
 
 export { ProductsController }

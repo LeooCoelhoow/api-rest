@@ -2,7 +2,7 @@ import express, { Request, Response, NextFunction } from "express"
 
 import { routes } from "./routes" //por padrão vai pegar o arquivo que tem o nome de index
 
-import { AppError } from "./utils/AppError"
+import { AppError } from "./utils/app-error"
 
 const PORT = 3333
 
