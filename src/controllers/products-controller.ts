@@ -23,13 +23,19 @@ class ProductsController {
     // z.(tipo de dado).(validação)
     // z.string().min(6) - string com no mínimo 6 caracteres
     const bodySchema = z.object({
-      name: z.string({ required_error: "name is required"}).min(6), // obrigatório
-      price: z.number({ required_error: "price is required"}).positive() // nullish() - pode ser nulo ou indefinido (opcional)
+      name: z
+      .string({ required_error: "name is required"})
+      .trim()
+      .min(6, { message: "name must be at least 6 characters long" }), // obrigatório e no mínimo 6 caracteres
+      price: z
+      .number({ required_error: "price is required"})
+      .positive({message: "price must be a positive number"})
+      // nullish() - pode ser nulo ou indefinido (opcional)
     })
 
     const { name, price } = bodySchema.parse(request.body) // Faz a validação do body, se não passar, retorna um erro
 
-    /**
+    /** Fazendo sem o Zod
     if(!name){
       throw new AppError("Nome do produto é obrigatório!")
     }
