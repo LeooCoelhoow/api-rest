@@ -1,5 +1,6 @@
 import { Request, Response } from "express"
 import { AppError } from "../utils/app-error"
+import { z } from "zod"
 
 class ProductsController {
   /** Um controller tem que receber até no máximo 5 métodos, mais que isso é viável outro controller
@@ -18,8 +19,17 @@ class ProductsController {
   }
 
   create(request: Request, response: Response){
-    const {name, price} = request.body // const recebendo os mesmos nomes do body no insomnia
+    // Como utilizar o Zod para validar os dados do body
+    // z.(tipo de dado).(validação)
+    // z.string().min(6) - string com no mínimo 6 caracteres
+    const bodySchema = z.object({
+      name: z.string().min(6),
+      price: z.number().positive()
+    })
 
+    const { name, price } = bodySchema.parse(request.body) // Faz a validação do body, se não passar, retorna um erro
+
+    /**
     if(!name){
       throw new AppError("Nome do produto é obrigatório!")
     }
@@ -35,6 +45,7 @@ class ProductsController {
     if(price < 0){
       throw new AppError("Preço do produto deve ser maior que zero!")
     }
+    */
 
     //throw new AppError("Erro")
 
