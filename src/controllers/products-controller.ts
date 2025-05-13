@@ -23,8 +23,8 @@ class ProductsController {
     // z.(tipo de dado).(validação)
     // z.string().min(6) - string com no mínimo 6 caracteres
     const bodySchema = z.object({
-      name: z.string().min(6), // obrigatório
-      price: z.number().positive() // nullish() - pode ser nulo ou indefinido (opcional)
+      name: z.string({ required_error: "name is required"}).min(6), // obrigatório
+      price: z.number({ required_error: "price is required"}).positive() // nullish() - pode ser nulo ou indefinido (opcional)
     })
 
     const { name, price } = bodySchema.parse(request.body) // Faz a validação do body, se não passar, retorna um erro
